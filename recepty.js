@@ -1,4 +1,11 @@
 const recepty = [
+  { nadpis: 'Halloumi z grilu na salátu',
+    popis: 'Halloumi je dobre',
+    hodnoceni: 4.2,
+    kategorie: 'Hlavní jídlo',
+    stitek: 'hlavniJidlo',
+    img: 'https://ms2.ostium.cz/instance/web-recepty/j1cFHt79/h389w574t.jpg'
+  },
   { nadpis: 'Ovocný tvarohový dort',
     popis: 'Poslední roky u mě v létě vedl pusinkový dort Pavlova na mnoho a mnoho způsobů, ale letos mám nového favorita. Už jsem zkoušela mnoho verzí a je vždy výborný, lehký i svěží a tak ideální ne jen na léto.',
     hodnoceni: 4.4,
