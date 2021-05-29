@@ -32,18 +32,18 @@
             <div class="kategorie">
                 
                 <label for="kategorie">Kategorie</label>
-                <select id="kategorie">
+                <select id="kategorie" onchange="setByCategory()">
                     <option value=""></option>
-                    <option onclick="setByCategory">Snídaně</option>
-                    <option onclick="setByCategory">Hlavní jídlo</option>
-                    <option onclick="setByCategory">Dezert</option>
+                    <option>Snídaně</option>
+                    <option>Hlavní jídlo</option>
+                    <option>Dezert</option>
                 </select>
                 
             </div>
             <div class="razeni">
                 
                 <label for="razeni">Seřadit</label>
-                <select id="razeni">
+                <select id="razeni" onchange="orderBy()">
                     <option value=""></option>
                     <option value="1">Od nejlepších</option>
                     <option value="2">Od nejhorších</option>

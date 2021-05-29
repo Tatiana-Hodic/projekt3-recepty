@@ -7,15 +7,15 @@ HTML vzor, jak vygenerovaný recept vypadá, je zakomentovaný v index.html. Don
 2) Doplň hledání - v hlavičce odkomentuj pole pro hledání. Pri kliknutí na tlačítko Hledat
 by se měl seznam receptů vyfiltrovat podle hledaného slova. Done
 
-3) Doplň filtrovanání receptů podle kategorie.
+3) Doplň filtrovanání receptů podle kategorie. Done
 
-4) Doplň řazení receptů podle hodnocení.
+4) Doplň řazení receptů podle hodnocení. Done
 
 5) Na recepty v seznamu by mělo jít kliknout a na pravé polovině, se objeví detail receptu.
 Doplň patričné údaje receptu do HTML prvků s ID recept-foto, recept-kategorie,
 recept-hodnoceni, recept-nazev, recept-popis. Done
 
-6) Poslední vybraný recept ulož do Local Storage, aby se při novém otevření aplikace načetl.
+6) Poslední vybraný recept ulož do Local Storage, aby se při novém otevření aplikace načetl. Done
 */
 
 let recipes;
@@ -23,7 +23,6 @@ let actualRecipes = [];
 let buttonSearch = document.getElementById('searchBtn');
 let inputSearch = document.getElementById('hledat');
 let selectedRecipe;
-let initialRecipe = localStorage.selectedRecipe;
 let recipesElement = document.getElementById('recepty');
 initialLoad();
 
@@ -33,7 +32,6 @@ function searchMeal(){
     let updatedRecipes = [];
     for(let index in recipes)
     {
-        console.log(recipes[index].nadpis.search(inputSearch.textContent));
 
         let stringToProcess = recipes[index].nadpis.toLowerCase().search(inputSearch.textContent);
         if(stringToProcess != -1)
@@ -41,7 +39,6 @@ function searchMeal(){
             updatedRecipes.push(recipes[index]);
         }
     }
-    console.log(updatedRecipes);
 
     reloadPage(updatedRecipes);
 }
@@ -49,7 +46,6 @@ function searchMeal(){
 function changeSearchInput(e) {
     reloadList();
     inputSearch.textContent = e.target.value.toLowerCase();
-    console.log(e.target.value);
 }
 
 function showDetail(recipe){
@@ -69,7 +65,12 @@ function showDetail(recipe){
         nazevTitle.textContent = recipe.nadpis;
         
         let popisTitle = document.getElementById('recept-popis');
-        popisTitle.textContent = recipe.popis;
+        popisTitle.textContent = recipe.popis;    
+        
+        localStorage.initialRecipe = JSON.stringify(recipe);
+        //let recept = JSON.parse(localStorage.initialRecipe);
+        console.log(localStorage.initialRecipe);
+        //console.log(recept);
     }
 }
 
@@ -107,7 +108,10 @@ function reloadPage(recipesUpdated){
 }
 
 function initialLoad(){
+    let initialRecipe = JSON.parse(localStorage.initialRecipe);
+    console.log(initialRecipe);
     reloadList();
+    showDetail(initialRecipe);
 }
 
 function reloadList(){
@@ -146,14 +150,39 @@ function reloadList(){
 
 function setByCategory(){
     updatedList = [];
-    console.log("selected!");
+
+    let select = document.getElementById('kategorie');
+    let option = select.options[select.selectedIndex].text;
+
+    console.log(option);
 
     for(let index in recipes)
     {
-        if(recipes[index] == category)
+        if(recipes[index].kategorie == option)
         {
             updatedList.push(recipes[index]);
         }
     }
     reloadPage(updatedList);
 }
+
+function orderBy(){
+    updatedList = recipes;
+
+    let select = document.getElementById('razeni');
+    let option = select.options[select.selectedIndex].value;
+
+    if(option == 1)
+    {
+        updatedList.sort((a, b) => {return a.hodnoceni - b.hodnoceni});
+    }
+    if(option == 2)
+    {
+        updatedList.sort((a, b) => {return b.hodnoceni - a.hodnoceni});
+    }
+    else {
+        console.log("wrong selected!");
+    }
+    reloadPage(updatedList);
+}
+
